@@ -13,7 +13,7 @@ const ax = axios.create({
 
 export const pfm =  {
   auth: (login, password) => {
-    ax.post('/api/auth/login',{
+    return ax.post('api/auth/login',{
       userId: login,
       password
     });

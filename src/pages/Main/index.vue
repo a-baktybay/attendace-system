@@ -21,18 +21,28 @@
             type="text" 
             placeholder="ID number"
             class="p-4 w-80 bg-gray-100 rounded-lg placeholder:text-gray-500 focus:outline-none"
-            @input="login=$event.target.value"
+            :class="{
+              'border border-red-500': auth.isError.value
+            }"
+            @input="auth.onChangeLogin($event.target.value)"
           >
           <input
             type="password" 
             placeholder="Password"
             class="p-4 w-80 bg-gray-100 rounded-lg placeholder:text-gray-500 focus:outline-none"
-            @input="password=$event.target.value"
+            :class="{
+              'border border-red-500': auth.isError.value
+            }"
+            @input="auth.onChangePassword($event.target.value)"
           >
+          <p v-if="auth.isError.value" class="self-start text-red-500">
+            Login or password is incorrect <br>
+            Please, try again.
+          </p>
           <button
             type="button"
             class="self-end py-0.5 w-20 px-4 rounded-lg text-white bg-blue-800"
-            @click="pfm.auth(login, password)"
+            @click="auth.auth()"
           >
             Login
           </button>
@@ -44,8 +54,9 @@
 
 
 <script setup>
-  import { pfm } from '@/shared/api';
-  
-  const login = '';
-  const password = '';
+  import { useAuth } from '@/features/auth';
+
+
+  const auth = useAuth();
+
 </script>
