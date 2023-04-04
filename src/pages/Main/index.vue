@@ -18,18 +18,21 @@
         >
         <div class="flex flex-col items-center space-y-8">
           <input
-          type="text" 
-          placeholder="ID number"
-          class="p-4 w-80 bg-gray-100 rounded-lg placeholder:text-gray-500 focus:outline-none"
+            type="text" 
+            placeholder="ID number"
+            class="p-4 w-80 bg-gray-100 rounded-lg placeholder:text-gray-500 focus:outline-none"
+            @input="login=$event.target.value"
           >
           <input
-          type="password" 
-          placeholder="Password"
-          class="p-4 w-80 bg-gray-100 rounded-lg placeholder:text-gray-500 focus:outline-none"
+            type="password" 
+            placeholder="Password"
+            class="p-4 w-80 bg-gray-100 rounded-lg placeholder:text-gray-500 focus:outline-none"
+            @input="password=$event.target.value"
           >
           <button
             type="button"
-            class="self-end py-0.5 w-20 px-4 rounded-lg text-white bg-blue-800 "
+            class="self-end py-0.5 w-20 px-4 rounded-lg text-white bg-blue-800"
+            @click="pfm.auth(login, password)"
           >
             Login
           </button>
@@ -40,10 +43,9 @@
 </template>
 
 
-<script>
-  import { defineComponent } from 'vue';
-
-  export default defineComponent({
-    name: 'MainPage'
-  });
+<script setup>
+  import { pfm } from '@/shared/api';
+  
+  const login = '';
+  const password = '';
 </script>
