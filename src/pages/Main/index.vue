@@ -63,7 +63,7 @@
   const auth = useAuth();
 
   const proceedToDashbord = () => {
-    router.push({
+    router.replace({
       name: 'DashbordPage'
     })
   }

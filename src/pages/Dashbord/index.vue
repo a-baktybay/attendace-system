@@ -12,9 +12,12 @@
 </template>
 
 <script setup>
+  import { useRouter } from 'vue-router';
   import { SideBar } from './ui';
   import dayjs from 'dayjs';
 
   const user = JSON.parse(localStorage.getItem('user'));
   const todayDate = dayjs(new Date).format('DD.MM.YYYY');
+
+  const router = useRouter();
 </script>

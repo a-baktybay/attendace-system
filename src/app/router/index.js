@@ -25,4 +25,14 @@ const router = createRouter({
   routes
 });
 
+router.beforeEach(async (to, _) => {
+  if(!localStorage.getItem('user') && to.name !== 'MainPage') {
+    return { name: 'MainPage' };
+  }
+
+  if(localStorage.getItem('user') && to.name === 'MainPage') {
+    return { name: 'DashbordPage' };
+  }
+})
+
 export { router };
