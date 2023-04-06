@@ -10,6 +10,8 @@ export function useAuth() {
       .auth(login.value, password.value)
       .then(({ data }) => {
         isError.value = false;
+        localStorage.setItem('user', JSON.stringify(data));
+        return data;
       })
       .catch(() => isError.value = true);
   }

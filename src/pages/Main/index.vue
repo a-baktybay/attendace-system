@@ -42,7 +42,7 @@
           <button
             type="button"
             class="self-end py-0.5 w-20 px-4 rounded-lg text-white bg-blue-800"
-            @click="auth.auth()"
+            @click="onAuth"
           >
             Login
           </button>
@@ -54,9 +54,23 @@
 
 
 <script setup>
+  import { useRouter } from 'vue-router';
   import { useAuth } from '@/features/auth';
 
 
+  
+  const router = useRouter();
   const auth = useAuth();
 
+  const proceedToDashbord = () => {
+    router.push({
+      name: 'DashbordPage'
+    })
+  }
+
+  const onAuth = () => {
+    auth
+      .auth()
+      .then(() => proceedToDashbord());
+  }
 </script>
