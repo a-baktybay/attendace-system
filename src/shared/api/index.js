@@ -17,5 +17,15 @@ export const pfm =  {
       userId: login,
       password
     });
+  },
+  admin: {
+    getStudents: (course, token) => {
+      return ax.get(`api/admin/${course}/students`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+    } 
   }
 }

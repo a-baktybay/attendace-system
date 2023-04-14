@@ -56,8 +56,6 @@
 <script setup>
   import { useRouter } from 'vue-router';
   import { useAuth } from '@/features/auth';
-
-
   
   const router = useRouter();
   const auth = useAuth();
