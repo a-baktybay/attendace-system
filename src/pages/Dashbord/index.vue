@@ -75,7 +75,7 @@
             <p>{{ student.numAttendance }}</p>
             <p>{{ student.numAbsence }}</p>
           </div>
-          <div v-if="activeStudent === student.id" class="pb-4 space-y-2 divide-y-2 w-full divide-black text-black text-lg font-medium">
+          <div v-if="activeStudent === student.id" class="py-4 space-y-2 divide-y-2 w-full bg-gray-200 divide-black text-black text-lg font-medium">
             <div class="flex space-x-5 px-3 ">
               <p 
                 v-for="date in student.attendanceList" 
@@ -92,7 +92,7 @@
             >
               <button 
                 type="button" 
-                class=""
+                class="w-12 flex justify-center items-center"
                 @click.stop="changeAttendance(student.id,date.id, !date.attendance)"
               >
               <svg v-if="isChanging" class="h-7 w-7 animate-spin stroke-gray-500" viewBox="0 0 256 256">
@@ -204,7 +204,8 @@
       .then(({ data }) => {
         students.value = data;
         return data;
-      });
+      })
+      .finally(() => isChanging.value = false);
   }
 
   function changeAttendance(studentId, timeId, value) {
@@ -213,7 +214,6 @@
       .changeAttendance(studentId, timeId, value, token.value)
       .then(() => {
         getStudents()
-          .finally(() => isChanging.value = false);
       })      
   }
 </script>
