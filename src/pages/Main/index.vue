@@ -39,13 +39,16 @@
             Login or password is incorrect <br>
             Please, try again.
           </p>
-          <button
+          <div class="w-full flex justify-between">
+            <button class="text-gray-500 text-lg">Forgot password?</button>
+            <button
             type="button"
             class="self-end py-0.5 w-20 px-4 rounded-lg text-white bg-blue-800"
             @click="onAuth"
-          >
+            >
             Login
           </button>
+        </div>
         </div>
       </div>
     </main>
