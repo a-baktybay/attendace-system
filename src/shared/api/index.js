@@ -26,6 +26,15 @@ export const pfm =  {
           'Authorization': `Bearer ${token}`
         }
       });
-    } 
+    },
+    changeAttendance(studentId, timeId, value, token) {
+      return ax.put(`api/admin/${studentId}/attendances/${timeId}/change/${value}`,
+      {},
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+    }
   }
 }
