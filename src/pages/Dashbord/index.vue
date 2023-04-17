@@ -86,11 +86,11 @@
             </p>
             </div>
             <div 
-              v-for="date in student.attendanceList" 
-              :key="date.time"
               class="flex space-x-5 px-3 py-2"
             >
               <button 
+                v-for="date in getSortedList(student.attendanceList)" 
+                :key="date.time"
                 type="button" 
                 class="w-12 flex justify-center items-center"
                 @click.stop="changeAttendance(student.id,date.id, !date.attendance)"
@@ -196,6 +196,23 @@
       return 'CARD';
     }
     return isAttend ? 'bird' : 'red-bird';
+  }
+
+  function getSortedList(list) {
+    return list.sort((a,b) => comparator(dayjs(a.time).format('DD.MM'), dayjs(b.time).format('DD.MM')))
+  }
+
+  function comparator(a,b) {
+    const q = a.split('.');
+    const w = b.split('.');
+
+    if (Number(q[1]) > Number(w[1])) {
+      return 1;
+    } else if (Number(q[1]) === Number(w[1])){
+      return Number(q[0]) > Number(w[0]) ? 1 : -1;
+    } else {
+      return -1
+    }
   }
 
   function getStudents() {
