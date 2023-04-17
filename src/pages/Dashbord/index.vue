@@ -66,6 +66,7 @@
             v-for="(student, idx) in students" 
             :key="student.id"
             class="w-full"
+            @click="activeStudent = student.id"
           >
           <div class="grid grid-cols-5 w-full p-3 text-left text-lg font-medium">
             <p>{{ idx + 1 }}</p>
@@ -74,7 +75,7 @@
             <p>{{ student.numAttendance }}</p>
             <p>{{ student.numAbsence }}</p>
           </div>
-          <div class="pb-4 space-y-2 divide-y-2 w-full divide-black text-black text-lg font-medium">
+          <div v-if="activeStudent === student.id" class="pb-4 space-y-2 divide-y-2 w-full divide-black text-black text-lg font-medium">
             <div class="flex space-x-5 px-3 ">
               <p 
                 v-for="date in student.attendanceList" 
@@ -188,6 +189,7 @@
   });
 
   const isChanging = ref(false);
+  const activeStudent = ref('');
 
   function getIconType(isAttend, type) {
     if (isAttend && type === 'CARD') {
