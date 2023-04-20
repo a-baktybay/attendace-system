@@ -1,0 +1,1 @@
+export { default as StudentBoard } from './StudentBoard.vue';

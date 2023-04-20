@@ -8,6 +8,11 @@
         <p>today date: {{ todayDate }}</p>
       </div>
       <AdminBoard v-if="user.roles.includes('ROLE_ADMIN')" :token="token"/>
+      <StudentBoard 
+        v-if="user.roles.includes('ROLE_STUDENT')" 
+        :token="token"
+        :id="user.id"
+      />
     </main>
   </div>
 </template>
@@ -18,6 +23,7 @@
   import { SideBar } from './ui';
   import dayjs from 'dayjs';
   import { AdminBoard } from '@/widgets/admin';
+  import { StudentBoard } from '@/widgets/student';
 
   const user = JSON.parse(localStorage.getItem('user'));
   const todayDate = dayjs(new Date).format('DD.MM.YYYY');

@@ -36,5 +36,15 @@ export const pfm =  {
         }
       });
     }
+  },
+  student: {
+    getSchedule: (studentId, token) => {
+      return ax.get(`api/student/${studentId}/subjects`,
+      {
+       headers: {
+        'Authorization': `Bearer ${token}`
+        }
+      });
+    }
   }
 }

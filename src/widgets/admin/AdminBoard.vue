@@ -194,7 +194,6 @@
     }
   }
 
-
   function getStudents() {
     return pfm.admin
       .getStudents(courseId.value, props.token)
