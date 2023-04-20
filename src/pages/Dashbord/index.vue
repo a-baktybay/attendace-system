@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen w-screen">
+  <div class="flex min-h-screen w-[98wh]">
     <SideBar />
     <main class="flex-grow py-10 px-5">
       <div class="w-full space-y-2 pb-20 text-right">
