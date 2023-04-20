@@ -15,7 +15,7 @@
         <p>{{ idx + 1 }}</p>
         <p>{{ sub.courseCode }}</p>
         <p>{{ sub.name }}</p>
-        <p>{{ sub.teacherId }}</p>
+        <p>{{ sub.teacherName }}</p>
       </div>
     </div>
   </div>

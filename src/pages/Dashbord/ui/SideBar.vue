@@ -10,8 +10,22 @@
         >
       </section>
       <nav class="flex flex-col space-y-4">
-        <button type="button" class="py-3 px-8 rounded-lg text-lg font-medium text-white bg-blue-800">
+        <button 
+          type="button" 
+          class="py-3 px-8 rounded-lg text-lg font-medium"
+          :class="pageName === 'attendance' ? 'text-white bg-blue-800' : 'text-gray-500 opacity-50'"
+          @click="$emit('onPageChange', 'attendance')"
+        >
           Attendance
+        </button>
+        <button
+          v-if="roles.includes('ROLE_STUDENT')"
+          type="button" 
+          class="py-3 px-8 rounded-lg text-lg font-medium"
+          :class="pageName === 'schedule' ? 'text-white bg-blue-800' : 'text-gray-500 opacity-50'"
+          @click="$emit('onPageChange', 'schedule')"
+        >
+          Schedule
         </button>
         <button>
           Contacts
@@ -33,6 +47,17 @@
 
 <script setup>
   import { useRouter } from 'vue-router';
+
+  const props = defineProps({
+    roles: {
+      type: Object,
+      required: true
+    },
+    pageName: {
+      type: String,
+      required: true
+    }
+  });
 
   const router = useRouter();
 

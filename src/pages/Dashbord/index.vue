@@ -1,6 +1,10 @@
 <template>
   <div class="flex min-h-screen w-[98wh]">
-    <SideBar :roles="user.roles"/>
+    <SideBar 
+      :roles="user.roles" 
+      :page-name="pageName"
+      @onPageChange="pageName = $event"
+    />
     <main class="flex-grow py-10 px-5">
       <div class="w-full space-y-2 pb-20 text-right">
         <p>full name : {{ user.username }}</p>
