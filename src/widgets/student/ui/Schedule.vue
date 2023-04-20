@@ -20,11 +20,19 @@
         <p class="h-16 border-b flex items-center justify-center border-black">15:00-15:50</p>
         <p class="h-16 border-b flex items-center justify-center border-black">16:00-16:50</p>
         <p class="h-16 border-b flex items-center justify-center border-black">17:00-17:50</p>
-        <p class="h-16 border-b flex items-center justify-center border-black">18:00-19:50</p>
-        <p class="h-16 border-b flex items-center justify-center border-black">20:00-21:50</p>
+        <p class="h-16 border-b flex items-center justify-center border-black">18:00-18:50</p>
+        <p class="h-16 border-b flex items-center justify-center border-black">19:00-19:50</p>
       </div>
       <div class="grid grid-cols-6 border-x border-black">
-          <div v-for="sub, idx in schedule" :key="idx" class="flex justify-center truncate items-center border-b border-r border-black w-full h-16 font-medium text-blue-800">
+          <div 
+            v-for="sub, idx in schedule" 
+            :key="idx" 
+            class="
+              flex justify-center truncate items-center 
+              border-b border-r border-black w-full 
+              h-16 font-medium text-blue-800
+            "
+          >
             {{ sub }}
           </div>
       </div>
@@ -48,7 +56,7 @@ import { onMounted, ref } from "vue";
     'WEDNESDAY': 2,
     'THURSDAY': 3,
     'FRIDAY': 4,
-    'SATURDAY': 5,
+    'SATURDAY': 5
   }
 
   const timeToId = {
@@ -80,12 +88,11 @@ import { onMounted, ref } from "vue";
   ]);
 
   function parseSubjects() {
-    console.log(props.subjects);
     props.subjects.forEach(sub => {
       const time = timeToId[sub.time.split(":")[0]];
       const day = dayToId[sub.weekDay];
-      schedule.value[time*day] = sub.name;
-      console.log(day);
+      console.log(time, day);
+      schedule.value[(6*time) + day] = sub.name;
     });
   } 
 
