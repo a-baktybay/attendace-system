@@ -45,6 +45,14 @@ export const pfm =  {
         'Authorization': `Bearer ${token}`
         }
       });
+    },
+    getListOfAttendanceByCourse: (studentID, token) => {
+      return ax.get(`api/student/${studentID}/subjects/attendance`, 
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
     }
   }
 }

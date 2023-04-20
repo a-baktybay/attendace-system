@@ -1,7 +1,12 @@
 <template>
-  <div class="pl-24 space-y-8">
-    <SubjectList v-if="schedule.length > 0" :subjects="schedule"/>
-    <Schedule v-if="schedule.length > 0" :subjects="schedule" />
+  <div class="space-y-8">
+    <template v-if="pageName === 'schedule'">
+      <SubjectList v-if="schedule.length > 0" :subjects="schedule"/>
+      <Schedule v-if="schedule.length > 0" :subjects="schedule" />
+    </template>
+    <template v-else>
+      <AttendanceList :id="id" :token="token"/>
+    </template>
   </div>
 </template>
 
@@ -9,13 +14,17 @@
 <script setup>
   import { onMounted, ref } from 'vue';
   import { pfm } from '@/shared/api';
-  import { Schedule, SubjectList } from './ui';
+  import { Schedule, SubjectList, AttendanceList } from './ui';
   const props = defineProps({
     token: {
       type: String,
       required: true
     },
     id: {
+      type: String,
+      required: true
+    },
+    pageName: {
       type: String,
       required: true
     }

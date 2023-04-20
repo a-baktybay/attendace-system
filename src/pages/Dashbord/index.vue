@@ -1,6 +1,6 @@
 <template>
   <div class="flex min-h-screen w-[98wh]">
-    <SideBar />
+    <SideBar :roles="user.roles"/>
     <main class="flex-grow py-10 px-5">
       <div class="w-full space-y-2 pb-20 text-right">
         <p>full name : {{ user.username }}</p>
@@ -12,13 +12,14 @@
         v-if="user.roles.includes('ROLE_STUDENT')" 
         :token="token"
         :id="user.id"
+        :page-name="pageName"
       />
     </main>
   </div>
 </template>
 
 <script setup>
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { SideBar } from './ui';
   import dayjs from 'dayjs';
@@ -29,6 +30,7 @@
   const todayDate = dayjs(new Date).format('DD.MM.YYYY');
 
   const router = useRouter();
+  const pageName = ref('attendance')
 
   const token = computed(() => {
     const user = JSON.parse(localStorage.getItem('user'));
