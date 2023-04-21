@@ -28,7 +28,7 @@
             v-for="sub, idx in schedule" 
             :key="idx" 
             class="
-              flex justify-center truncate items-center 
+              flex justify-center items-center text-center
               border-b border-r border-black w-full 
               h-16 font-medium text-blue-800
             "
