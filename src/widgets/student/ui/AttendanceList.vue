@@ -42,31 +42,35 @@
                 class="relative w-12 flex justify-center items-center shrink-0"
                 @mouseover="hoveredButton=date.id"
                 @mouseleave="hoveredButton=''"
+                @click="changeAttendance(date)"
               > 
-                <img 
-                  v-if="getIconType(date.attendance, date.attendanceType) === 'CARD'"
-                  src="@/assets/images/card.svg" 
-                  alt=""
-                  width="28"
-                  height="28"
-                >
-                <img 
-                  v-else-if="getIconType(date.attendance, date.attendanceType) === 'red-bird'"
-                  src="@/assets/images/abnsence.svg" 
-                  alt=""
-                  width="28"
-                  height="28`"
-                >
-                <img
-                  v-else-if="getIconType(date.attendance, date.attendanceType) === 'bird'"
-                  src="@/assets/images/attend.svg" 
-                  alt=""
-                  width="28"
-                  height="28"
-                >
-                <div>
-                  <p v-if="hoveredButton === date.id" class="absolute left-7 top-6 z-10 bg-white w-32 shrink-0">{{ date.putedByInfo }}</p>
-                </div>
+                <MiniLoader v-if="isChanging" />
+                <template v-else>
+                  <img 
+                    v-if="getIconType(date.attendance, date.attendanceType) === 'CARD'"
+                    src="@/assets/images/card.svg" 
+                    alt=""
+                    width="28"
+                    height="28"
+                  >
+                  <img 
+                    v-else-if="getIconType(date.attendance, date.attendanceType) === 'red-bird'"
+                    src="@/assets/images/abnsence.svg" 
+                    alt=""
+                    width="28"
+                    height="28`"
+                  >
+                  <img
+                    v-else-if="getIconType(date.attendance, date.attendanceType) === 'bird'"
+                    src="@/assets/images/attend.svg" 
+                    alt=""
+                    width="28"
+                    height="28"
+                  >
+                  <div>
+                    <p v-if="hoveredButton === date.id" class="absolute left-7 top-6 z-10 bg-white w-32 shrink-0">{{ date.putedByInfo }}</p>
+                  </div>
+                </template>
               </button>
             </div>
           </div>
@@ -96,6 +100,7 @@
 
  const activeCourse = ref('');
  const hoveredButton = ref('');
+ const isChanging = ref(false);
 
  function getIconType(isAttend, type) {
    if (isAttend && type === 'CARD') {
@@ -122,15 +127,31 @@
  }
 
  function getAttendanceList() {
+  isChanging.value = true;
    return pfm.student
      .getListOfAttendanceByCourse(props.id, props.token)
      .then(({ data }) => {
         courses.value = data;
        return data;
      })
+     .finally(() => isChanging.value = false);
  }
 
  const courses = ref([]);
+
+ function changeAttendance(attendance) {
+    const payload = {
+      ...attendance,
+      attendance: !attendance.attendance,
+      attendanceType: 'PORTAL'
+    }
+
+    return pfm.student
+      .changeAttendance(attendance.studentId, props.token, payload)
+      .then(() => {
+        getAttendanceList();
+      })      
+ }
 
  onMounted(() => {
   getAttendanceList();

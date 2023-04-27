@@ -54,16 +54,9 @@ export const pfm =  {
         }
       })
     },
-    changeAttendance: (studentId, token) => {
-      return ax.put(`api/student/${studentId}/attendance/take`, {
-        time: "2023-03-31T14:10:00",
-        isAttendance: true, 
-        studentId: "200107004",
-        courseCode: "MDE152.1",
-        putedById: "200107004",
-        putedByRole: "STUDENT",
-        attendanceType: "CARD"
-      },
+    changeAttendance: (studentId, token, body) => {
+      return ax.post(`api/student/${studentId}/attendance/take`,
+      body,
       {
         headers: {
           'Authorization': `Bearer ${token}`
