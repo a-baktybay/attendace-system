@@ -29,8 +29,17 @@
                 :key="date.id"
                 class="w-12 shrink-0"
               >
-              {{ dayjs(date.time).format('DD.MM')  }}
-            </p>
+                {{ dayjs(date.time).format('DD.MM')  }}
+              </p>
+            </div>
+            <div class="flex space-x-5">
+              <p 
+                v-for="date in course.attendanceList" 
+                :key="date.id"
+                class="w-12 shrink-0"
+              >
+                {{ date.subjectHour  }}
+              </p>  
             </div>
             <div 
               class="flex space-x-5 py-2"
@@ -150,7 +159,7 @@
       .changeAttendance(attendance.studentId, props.token, payload)
       .then(() => {
         getAttendanceList();
-      })      
+      })        
  }
 
  onMounted(() => {
