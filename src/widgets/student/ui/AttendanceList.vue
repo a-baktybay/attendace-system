@@ -25,8 +25,8 @@
           <div v-if="activeCourse === course.courseCode" class="py-4 px-3 space-y-2 divide-y-2 w-full bg-gray-200 text-lg font-medium  overflow-x-auto">
             <div class="flex space-x-5">
               <p 
-                v-for="date, idx in course.attendanceList" 
-                :key="idx"
+                v-for="date in course.attendanceList" 
+                :key="date.id"
                 class="w-12 shrink-0"
               >
               {{ dayjs(date.time).format('DD.MM')  }}
@@ -36,17 +36,26 @@
               class="flex space-x-5 py-2"
             >
               <button 
-                v-for="date, i in getSortedList(course .attendanceList)" 
-                :key="i"
+                v-for="date in getSortedList(course .attendanceList)" 
+                :key="date.id"
                 type="button" 
-                class="w-12 flex justify-center items-center shrink-0 "
-              >
+                class="relative w-12 flex justify-center items-center shrink-0"
+                @mouseover="hoveredButton=date.id"
+                @mouseleave="hoveredButton=''"
+              > 
                 <img 
                   v-if="getIconType(date.attendance, date.attendanceType) === 'CARD'"
                   src="@/assets/images/card.svg" 
                   alt=""
                   width="28"
                   height="28"
+                >
+                <img 
+                  v-else-if="getIconType(date.attendance, date.attendanceType) === 'red-bird'"
+                  src="@/assets/images/abnsence.svg" 
+                  alt=""
+                  width="28"
+                  height="28`"
                 >
                 <img
                   v-else-if="getIconType(date.attendance, date.attendanceType) === 'bird'"
@@ -55,13 +64,9 @@
                   width="28"
                   height="28"
                 >
-                <img 
-                  v-else
-                  src="@/assets/images/abnsence.svg" 
-                  alt=""
-                  width="28"
-                  height="28`"
-                >
+                <div>
+                  <p v-if="hoveredButton === date.id" class="absolute left-7 top-6 z-10 bg-white w-32 shrink-0">{{ date.putedByInfo }}</p>
+                </div>
               </button>
             </div>
           </div>
@@ -90,6 +95,7 @@
  });
 
  const activeCourse = ref('');
+ const hoveredButton = ref('');
 
  function getIconType(isAttend, type) {
    if (isAttend && type === 'CARD') {
