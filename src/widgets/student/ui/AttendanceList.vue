@@ -10,36 +10,36 @@
          </div>
         <div class="border-2 border-gray-700 border-t-0">
          <button 
-           v-for="(student, idx) in courses" 
-           :key="student.id"
+           v-for="(course, idx) in courses" 
+           :key="idx"
            class="w-full"
-           @click="activeCourse = student.id"
+           @click="activeCourse = course.courseCode"
          >
           <div class="grid grid-cols-5 w-full p-3 text-left text-lg font-medium">
             <p>{{ idx + 1 }}</p>
-            <p>{{ student.courseCode }}</p>
-            <p class="truncate w-11/12">course name</p>
-            <p>{{ student.numAttendance }}</p>
-            <p>{{ student.numAbsence }}</p>
+            <p>{{ course.courseCode }}</p>
+            <p class="truncate w-11/12">{{ course.courseName }}</p>
+            <p>{{ course.attendanceNum }}</p>
+            <p>{{ course.absenceNum  }}</p>
           </div>
-          <div v-if="activeCourse === student.id" class="py-4 space-y-2 divide-y-2 w-full bg-gray-200 divide-black text-black text-lg font-medium">
-            <div class="flex space-x-5 px-3 ">
+          <div v-if="activeCourse === course.courseCode" class="py-4 px-3 space-y-2 divide-y-2 w-full bg-gray-200 text-lg font-medium  overflow-x-auto">
+            <div class="flex space-x-5">
               <p 
-                v-for="date in student.attendanceList" 
-                :key="date.time"
-                class="w-12"
+                v-for="date, idx in course.attendanceList" 
+                :key="idx"
+                class="w-12 shrink-0"
               >
               {{ dayjs(date.time).format('DD.MM')  }}
             </p>
             </div>
             <div 
-              class="flex space-x-5 px-3 py-2"
+              class="flex space-x-5 py-2"
             >
               <button 
-                v-for="date in getSortedList(student.attendanceList)" 
-                :key="date.time"
+                v-for="date, i in getSortedList(course .attendanceList)" 
+                :key="i"
                 type="button" 
-                class="w-12 flex justify-center items-center"
+                class="w-12 flex justify-center items-center shrink-0 "
               >
                 <img 
                   v-if="getIconType(date.attendance, date.attendanceType) === 'CARD'"
@@ -130,3 +130,16 @@
   getAttendanceList();
  });
 </script>
+
+<style scoped>
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+</style>
