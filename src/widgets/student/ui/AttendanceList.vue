@@ -38,15 +38,15 @@
                 :key="date.id"
                 class="w-12 shrink-0"
               >
-                {{ date.subjectHour  }}
+                {{ dayjs(date.time).format('HH:MM')  }}
               </p>  
             </div>
             <div 
               class="flex space-x-5 py-2"
             >
               <button 
-                v-for="date in getSortedList(course .attendanceList)" 
-                :key="date.id"
+                v-for="date, idx in course.attendanceList" 
+                :key="`${date.id}${idx}`"
                 type="button" 
                 class="relative w-12 flex justify-center items-center shrink-0"
                 @mouseover="hoveredButton=date.id"
@@ -76,9 +76,7 @@
                     width="28"
                     height="28"
                   >
-                  <div>
-                    <p v-if="hoveredButton === date.id" class="absolute left-7 top-6 z-10 bg-white w-32 shrink-0">{{ date.putedByInfo }}</p>
-                  </div>
+                  <p v-if="hoveredButton === date.id" class="absolute left-7 top-6 z-10 bg-white w-32 shrink-0">{{ date.putedByInfo }}</p>
                 </template>
               </button>
             </div>
@@ -136,7 +134,6 @@
  }
 
  function getAttendanceList() {
-  isChanging.value = true;
    return pfm.student
      .getListOfAttendanceByCourse(props.id, props.token)
      .then(({ data }) => {
@@ -154,11 +151,16 @@
       attendance: !attendance.attendance,
       attendanceType: 'PORTAL'
     }
-
+    isChanging.value = true;
     return pfm.student
       .changeAttendance(attendance.studentId, props.token, payload)
-      .then(() => {
-        getAttendanceList();
+      .then(({data}) => {
+        if (data.message) {
+          alert(data.message);
+          isChanging.value = false;
+        } else {
+          getAttendanceList();
+        }
       })        
  }
 

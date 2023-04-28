@@ -91,7 +91,6 @@ import { onMounted, ref } from "vue";
     props.subjects.forEach(sub => {
       const time = timeToId[sub.time.split(":")[0]];
       const day = dayToId[sub.weekDay];
-      console.log(time, day);
       schedule.value[(6*time) + day] = sub.name;
     });
   } 
