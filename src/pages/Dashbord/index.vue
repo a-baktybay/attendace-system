@@ -18,6 +18,12 @@
         :id="user.id"
         :page-name="pageName"
       />
+      <TeacherBoard 
+        v-else 
+        :token="token"
+        :id="user.id"
+        page-name="schedule"
+      />
     </main>
   </div>
 </template>
@@ -29,6 +35,7 @@
   import dayjs from 'dayjs';
   import { AdminBoard } from '@/widgets/admin';
   import { StudentBoard } from '@/widgets/student';
+  import { TeacherBoard } from '@/widgets/teacher';
 
   const user = JSON.parse(localStorage.getItem('user'));
   const todayDate = dayjs(new Date).format('DD.MM.YYYY');

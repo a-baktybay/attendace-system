@@ -63,5 +63,15 @@ export const pfm =  {
         }
       })
     }
+  },
+  teacher: {
+    getSchedule: (id, token) => {
+      return ax.get(`api/teacher/${id}/schedule`,
+      {
+       headers: {
+        'Authorization': `Bearer ${token}`
+        }
+      });
+    }
   }
 }
