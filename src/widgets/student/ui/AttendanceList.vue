@@ -38,7 +38,7 @@
                 :key="date.id"
                 class="w-12 shrink-0"
               >
-                {{ dayjs(date.time).format('HH:MM')  }}
+                {{ date.subjectHour  }}
               </p>  
             </div>
             <div 
@@ -51,7 +51,6 @@
                 class="relative w-12 flex justify-center items-center shrink-0"
                 @mouseover="hoveredButton=date.id"
                 @mouseleave="hoveredButton=''"
-                @click="changeAttendance(date)"
               > 
                 <MiniLoader v-if="isChanging" />
                 <template v-else>

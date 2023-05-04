@@ -22,7 +22,7 @@
         v-else 
         :token="token"
         :id="user.id"
-        page-name="schedule"
+        :page-name="pageName"
       />
     </main>
   </div>

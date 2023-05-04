@@ -19,7 +19,7 @@
           Attendance
         </button>
         <button
-          v-if="roles.includes('ROLE_STUDENT')"
+          v-if="roles.includes('ROLE_STUDENT') || roles.includes('ROLE_TEACHER')"
           type="button" 
           class="py-3 px-8 rounded-lg text-lg font-medium"
           :class="pageName === 'schedule' ? 'text-white bg-blue-800' : 'text-gray-500 opacity-50'"
@@ -27,7 +27,7 @@
         >
           Schedule
         </button>
-        <button>
+        <button class="text-gray-500 opacity-50">
           Contacts
         </button>
       </nav>
