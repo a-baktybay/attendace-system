@@ -119,6 +119,10 @@
    return list.sort((a,b) => comparator(dayjs(a.time).format('DD.MM'), dayjs(b.time).format('DD.MM')))
  }
 
+function sortAttendance(list) {
+  return list.sort((a, b) => b.absenceNum - a.absenceNum);
+}
+
  function comparator(a,b) {
    const q = a.split('.');
    const w = b.split('.');
@@ -136,7 +140,7 @@
    return pfm.student
      .getListOfAttendanceByCourse(props.id, props.token)
      .then(({ data }) => {
-        courses.value = data;
+       courses.value = sortAttendance(data);
        return data;
      })
      .finally(() => isChanging.value = false);
