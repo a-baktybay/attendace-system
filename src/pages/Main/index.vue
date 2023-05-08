@@ -39,16 +39,25 @@
             Login or password is incorrect <br>
             Please, try again.
           </p>
-          <div class="w-full flex justify-between">
-            <button class="text-gray-500 text-lg">Forgot password?</button>
+          <div class="w-full flex flex-col space-y-2 justify-between">
+            <div class="w-full flex justify-between">
+              <button class="text-gray-500 text-lg">Forgot password?</button>
+                <button
+                  type="submit"
+                  class="self-end py-0.5 w-20 px-4 rounded-lg text-white bg-blue-800"
+                  @submit="onAuth"
+                >
+                Login
+              </button>
+            </div>
             <button
-            type="button"
-            class="self-end py-0.5 w-20 px-4 rounded-lg text-white bg-blue-800"
-            @click="onAuth"
+              type="button"
+              class="self-end py-0.5 px-4 h-12 w-full text-lg rounded-lg text-white bg-blue-800"
+              @click="() => router.push({ name: 'AttendancePage' })"
             >
-            Login
-          </button>
-        </div>
+              I have ID card!
+            </button>
+          </div>
         </div>
       </div>
     </main>
