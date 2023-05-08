@@ -75,7 +75,9 @@
                     width="28"
                     height="28"
                   >
-                  <p v-if="hoveredButton === date.id" class="absolute left-7 top-6 z-10 bg-white w-32 shrink-0">{{ date.putedByInfo }}</p>
+                  <p v-if="hoveredButton === date.id" class="absolute left-7 top-6 z-10 bg-white w-56 shrink-0">
+                    {{ date.putedByInfo }} : {{ date.putedByRole   }}
+                  </p>
                 </template>
               </button>
             </div>
