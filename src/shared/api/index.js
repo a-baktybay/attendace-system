@@ -1,4 +1,5 @@
 import axios from 'axios';
+import dayjs from 'dayjs';
 
 const origin = window.location
 
@@ -73,5 +74,14 @@ export const pfm =  {
         }
       });
     }
+  },
+  putAttendance(id) {
+    const almatyTime = dayjs(new Date()).toISOString();
+    const date = new Date(almatyTime).toISOString().split('.')[0];
+    const arr = date.split('T');
+    const time = date.split('T')[1].split(':');
+    const dateWithTimezone = `${arr[0]}T${Number(time[0]) + 6}:${time[1]}:${time[2]}`;
+
+    return ax.post(`attendance/take?studentId=${id}&time=${dateWithTimezone}`);
   }
 }
