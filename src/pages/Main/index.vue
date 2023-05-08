@@ -45,7 +45,7 @@
                 <button
                   type="submit"
                   class="self-end py-0.5 w-20 px-4 rounded-lg text-white bg-blue-800"
-                  @submit="onAuth"
+                  @click="onAuth"
                 >
                 Login
               </button>
