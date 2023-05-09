@@ -60,14 +60,21 @@
         @click="takeAttendance"
       >
         submit
-      </button>
+    </button>
+    <ChAlert ref="errorAlertRef">
+      <template #default>
+        <div class="flex justify-center">
+          {{ message }}
+        </div>
+      </template>
+    </ChAlert>
   </div>
 </template>
 
 <script setup>
   import { ref, watch, computed } from 'vue';
   import { pfm } from '@/shared/api';
-
+  import { ChAlert } from 'choco-ui';
   const props = defineProps({
     token: {
       type: String,
@@ -86,7 +93,9 @@
   const students = ref([]);
   const attendanceList = ref({});
 
-
+  const errorAlertRef = ref();
+  const message = ref('');
+  
   const getStudents = () => {
     return pfm.teacher
       .getStudents(props.id, props.studentId, props.token)
@@ -110,6 +119,14 @@
     console.log(list);
     return pfm.teacher
       .takeAttendance(props.id, list, props.token)
+      .then(() => {
+        message.value = 'success';
+        errorAlertRef.value.show();
+      })
+      .catch(({response}) => {
+        message.value = response.data.message;
+        errorAlertRef.value.show();
+      });
   }
 
   watch(computed(() => props.studentId), () => {

@@ -83,7 +83,12 @@ export const pfm =  {
       }); 
     },
     takeAttendance: (id, body, token) => {
-      return ax.put(`api/teacher/${id}/students/attendance/take`, body,
+      const almatyTime = dayjs(new Date()).toISOString();
+      const date = new Date(almatyTime).toISOString().split('.')[0];
+      const arr = date.split('T');
+      const time = date.split('T')[1].split(':');
+      const dateWithTimezone = `${arr[0]}T${Number(time[0]) + 6}:${time[1]}:${time[2]}`;
+      return ax.put(`api/teacher/${id}/students/attendance/take?time=${dateWithTimezone}`, body,
         {
           headers: {
             'Authorization': `Bearer ${token}`
