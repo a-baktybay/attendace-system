@@ -3,7 +3,16 @@
     <template v-if="pageName === 'schedule'">
       <Schedule v-if="schedule.length > 0" :subjects="schedule" />
     </template>
-
+    <template v-else>
+      <div class="space-y-10">
+        <SearchStudents @onSearch="studentID = $event"/>
+        <SearchList 
+          :token="token" 
+          :id="id"
+          :student-id="studentID"
+        />
+      </div>
+    </template>
   </div>
 </template>
 
@@ -11,7 +20,12 @@
 <script setup>
   import { onMounted, ref } from 'vue';
   import { pfm } from '@/shared/api';
-  import { Schedule, SubjectList } from './ui';
+  import { 
+    Schedule, 
+    SubjectList, 
+    SearchStudents,
+    SearchList
+  } from './ui';
   const props = defineProps({
     token: {
       type: String,
@@ -28,6 +42,7 @@
   });
 
   const schedule = ref([]);
+  const studentID = ref('');
 
   function getSchedule () {
     return pfm.teacher  

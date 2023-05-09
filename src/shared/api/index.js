@@ -73,7 +73,24 @@ export const pfm =  {
         'Authorization': `Bearer ${token}`
         }
       });
-    }
+    },
+    getStudents: (id, studentID, token) => {
+      return ax.get(`api/teacher/${id}/students/search?studentId=${studentID}`,
+      {
+       headers: {
+        'Authorization': `Bearer ${token}`
+        }
+      }); 
+    },
+    takeAttendance: (id, body, token) => {
+      return ax.put(`api/teacher/${id}/students/attendance/take`, body,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
+    } 
   },
   putAttendance(id) {
     const almatyTime = dayjs(new Date()).toISOString();

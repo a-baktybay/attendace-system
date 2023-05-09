@@ -13,7 +13,7 @@
       </div>
       <AdminBoard v-if="user.roles.includes('ROLE_ADMIN')" :token="token"/>
       <StudentBoard 
-        v-if="user.roles.includes('ROLE_STUDENT')" 
+        v-else-if="user.roles.includes('ROLE_STUDENT')" 
         :token="token"
         :id="user.id"
         :page-name="pageName"
