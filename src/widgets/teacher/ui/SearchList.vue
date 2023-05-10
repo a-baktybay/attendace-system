@@ -1,73 +1,75 @@
 <template>
-  <div v-if="students.length > 0" class="flex flex-col items-end space-y-5 w-fit">
-    <div class="space-y-8 w-full text-left">
-        <div class="w-[820px]">
-          <div class="grid grid-cols-4 w-full p-3 text-lg font-medium bg-blue-800 text-white rounded-t-md text-center">
-            <p>ID Number</p>
-            <p class="truncate w-11/12">Name</p>
-            <p>Attendance</p>
-            <p>Absence</p>
-          </div>
-          <div
-            class="border-2 border-gray-700 border-t-0"
-          >
-          <div 
-              v-for="student in students"
-              :key="student.id"
-              class="w-full text-center"
+  <div>
+    <div v-if="students.length > 0" class="flex flex-col items-end space-y-5 w-fit">
+      <div class="space-y-8 w-full text-left">
+          <div class="w-[820px]">
+            <div class="grid grid-cols-4 w-full p-3 text-lg font-medium bg-blue-800 text-white rounded-t-md text-center">
+              <p>ID Number</p>
+              <p class="truncate w-11/12">Name</p>
+              <p>Attendance</p>
+              <p>Absence</p>
+            </div>
+            <div
+              class="border-2 border-gray-700 border-t-0"
             >
-            <div class="grid grid-cols-4 h-10 w-full p-3">
-              <p>{{ student.id }}</p>
-              <p>{{ student.firstname }} {{ student.lastname }}</p>
-              <button 
-                type="button" 
-                class="flex justify-center"
-                @click="changeAtt(student.id, true)"
+            <div 
+                v-for="student in students"
+                :key="student.id"
+                class="w-full text-center"
               >
-              <div class="border-2" :class="attendanceList[student.id]?.attendance ? 'bg-gray-300' : 'border-transparent'">
-                <img 
-                  src="@/assets/images/attend.svg" 
-                  alt=""
-                  width="20"
-                  height="20"
-                  class="bg-white rounded-full"
+              <div class="grid grid-cols-4 h-10 w-full p-3">
+                <p>{{ student.id }}</p>
+                <p>{{ student.firstname }} {{ student.lastname }}</p>
+                <button 
+                  type="button" 
+                  class="flex justify-center"
+                  @click="changeAtt(student.id, true)"
                 >
+                <div class="border-2" :class="attendanceList[student.id]?.attendance ? 'bg-gray-300' : 'border-transparent'">
+                  <img 
+                    src="@/assets/images/attend.svg" 
+                    alt=""
+                    width="20"
+                    height="20"
+                    class="bg-white rounded-full"
+                  >
+                </div>
+                </button>
+                <button 
+                  type="button" 
+                  class="flex justify-center"
+                  @click="changeAtt(student.id, false)"
+                >
+                <div class="border-2" :class="attendanceList[student.id]?.attendance ? 'border-transparent' : 'bg-gray-300'">
+                  <img 
+                    src="@/assets/images/abnsence.svg" 
+                    alt=""
+                    width="20"
+                    height="20"
+                    class="bg-white rounded-full"
+                  >
+                </div>  
+                </button>
               </div>
-              </button>
-              <button 
-                type="button" 
-                class="flex justify-center"
-                @click="changeAtt(student.id, false)"
-              >
-              <div class="border-2" :class="attendanceList[student.id]?.attendance ? 'border-transparent' : 'bg-gray-300'">
-                <img 
-                  src="@/assets/images/abnsence.svg" 
-                  alt=""
-                  width="20"
-                  height="20"
-                  class="bg-white rounded-full"
-                >
-              </div>  
-              </button>
             </div>
           </div>
         </div>
       </div>
+      <button 
+          type="button" 
+          class="h-11 px-5 py-1 bg-blue-800 text-white font-medium rounded-lg"
+          @click="takeAttendance"
+        >
+          submit
+      </button>
     </div>
-    <button 
-        type="button" 
-        class="h-11 px-5 py-1 bg-blue-800 text-white font-medium rounded-lg"
-        @click="takeAttendance"
-      >
-        submit
-    </button>
     <ChAlert ref="errorAlertRef">
-      <template #default>
-        <div class="flex justify-center">
-          {{ message }}
-        </div>
-      </template>
-    </ChAlert>
+        <template #default>
+          <div class="flex justify-center">
+            {{ message }}
+          </div>
+        </template>
+      </ChAlert>
   </div>
 </template>
 
@@ -107,6 +109,10 @@
             attendance: false
           }
         });
+      })
+      .catch(({response}) => {
+        message.value = response.data.message;
+        errorAlertRef.value.show();
       });
   }
 
