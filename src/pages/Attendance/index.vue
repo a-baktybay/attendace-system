@@ -23,13 +23,22 @@
         Put
       </button>
     </div>
-    <ChAlert ref="errorAlertRef">
-      <template #default>
-        <div class="flex justify-center">
-          {{ message }}
-        </div>
-      </template>
-    </ChAlert>
+    <div class="relative w-full flex justify-center">
+      <ChAlert ref="errorAlertRef" class="!border-4 !border-red-300 !bg-red-200">
+        <template #default>
+          <div class="flex justify-center text-red-300 text-lg">
+            {{ message }}
+          </div>
+        </template>
+      </ChAlert>
+      <ChAlert ref="successAlertRef">
+        <template #default>
+          <div class="flex justify-center text-lg w-40">
+            {{ successMessage }}
+          </div>
+        </template>
+      </ChAlert>
+    </div>
   </main>
 </template>
 
@@ -39,16 +48,18 @@
   import { ref } from 'vue';
 
   const errorAlertRef = ref();
+  const successAlertRef = ref();
 
   const id = ref('');
   const message = ref('');
+  const successMessage = ref('');
   
   
   function put() {
     return pfm.putAttendance(id.value)
       .then(() => { 
-        errorAlertRef.value.show();
-        message.value = 'success';
+        successAlertRef.value.show();
+        successMessage.value = 'success';
       })
       .catch(({response}) => {
         message.value = response.data.message;

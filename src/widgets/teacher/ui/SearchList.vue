@@ -63,13 +63,20 @@
           submit
       </button>
     </div>
-    <ChAlert ref="errorAlertRef">
+    <ChAlert ref="errorAlertRef" class="!border-4 !border-red-300 !bg-red-200">
         <template #default>
-          <div class="flex justify-center">
+          <div class="flex justify-center text-red-300 text-lg">
             {{ message }}
           </div>
         </template>
-      </ChAlert>
+    </ChAlert>
+    <ChAlert ref="successAlertRef">
+        <template #default>
+          <div class="flex justify-center w-40 text-lg">
+            {{ successMessage }}
+          </div>
+        </template>
+    </ChAlert>
   </div>
 </template>
 
@@ -77,6 +84,7 @@
   import { ref, watch, computed } from 'vue';
   import { pfm } from '@/shared/api';
   import { ChAlert } from 'choco-ui';
+
   const props = defineProps({
     token: {
       type: String,
@@ -96,19 +104,24 @@
   const attendanceList = ref({});
 
   const errorAlertRef = ref();
+  const successAlertRef = ref();
+  const successMessage = ref('');
+
   const message = ref('');
   
   const getStudents = () => {
     return pfm.teacher
       .getStudents(props.id, props.studentId, props.token)
       .then((data) => {
-        students.value = data.data
+        students.value = data.data;
+        attendanceList.value = [];
         data.data.forEach(student => {
           attendanceList.value[student.id] = {
             studentId: student.id,
             attendance: false
           }
         });
+        console.log(attendanceList.value);
       })
       .catch(({response}) => {
         students.value = [];
@@ -127,8 +140,8 @@
     return pfm.teacher
       .takeAttendance(props.id, list, props.token)
       .then(() => {
-        message.value = 'success';
-        errorAlertRef.value.show();
+        successMessage.value = 'success';
+        successAlertRef.value.show();
       })
       .catch(({response}) => {
         message.value = response.data.message;
