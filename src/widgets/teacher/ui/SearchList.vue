@@ -139,6 +139,9 @@
   watch(computed(() => props.studentId), () => {
     if (props.studentId.length >= 5) {
       getStudents();
+    } else {
+      message.value = 'WRITE AT LEAST 5 DIGITS OF ID';
+      errorAlertRef.value.show();
     }
   });
 </script>
