@@ -48,7 +48,7 @@
                 v-for="date, idx in course.attendanceList" 
                 :key="`${date.id}${idx}`"
                 type="button" 
-                class="relative w-12 flex justify-center items-center shrink-0"
+                class="relative w-12 h-7 flex justify-center items-center shrink-0"
                 @mouseover="hoveredButton=date.id"
                 @mouseleave="hoveredButton=''"
               > 

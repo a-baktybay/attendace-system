@@ -137,7 +137,7 @@
   }
 
   watch(computed(() => props.studentId), () => {
-    if (props.studentId.length >= 5) {
+    if (props.studentId.length > 5) {
       getStudents();
     }
   });

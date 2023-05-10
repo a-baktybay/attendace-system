@@ -1,0 +1,1 @@
+export { default as ContactsBoard } from './index.vue';

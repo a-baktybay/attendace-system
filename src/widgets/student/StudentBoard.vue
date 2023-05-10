@@ -4,6 +4,9 @@
       <SubjectList v-if="schedule.length > 0" :subjects="schedule"/>
       <Schedule v-if="schedule.length > 0" :subjects="schedule" />
     </template>
+    <template v-else-if="pageName === 'contacts'">
+      <ContactsBoard />
+    </template>
     <template v-else>
       <AttendanceList :id="id" :token="token"/>
     </template>
@@ -15,6 +18,7 @@
   import { onMounted, ref } from 'vue';
   import { pfm } from '@/shared/api';
   import { Schedule, SubjectList, AttendanceList } from './ui';
+  import { ContactsBoard } from '../сontacts';
   const props = defineProps({
     token: {
       type: String,

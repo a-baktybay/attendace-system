@@ -27,7 +27,12 @@
         >
           Schedule
         </button>
-        <button class="text-gray-500 opacity-50">
+        <button 
+          type="button"
+          class="py-3 px-8 rounded-lg text-lg font-medium"
+          :class="pageName === 'contacts' ? 'text-white bg-blue-800' : 'text-gray-500 opacity-50'"
+          @click="$emit('onPageChange', 'contacts')"
+        >
           Contacts
         </button>
       </nav>

@@ -11,7 +11,11 @@
         <p>ID number : {{ user.id }}</p>
         <p>today date: {{ todayDate }}</p>
       </div>
-      <AdminBoard v-if="user.roles.includes('ROLE_ADMIN')" :token="token"/>
+      <AdminBoard 
+        v-if="user.roles.includes('ROLE_ADMIN')" 
+        :token="token"
+        :page-name="pageName"
+      />
       <StudentBoard 
         v-else-if="user.roles.includes('ROLE_STUDENT')" 
         :token="token"
