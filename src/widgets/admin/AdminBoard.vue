@@ -194,11 +194,16 @@
     }
   }
 
+  function sortAttendance(list) {
+  return list.sort((a, b) => b.numAbsence - a.numAbsence);
+}
+
   function getStudents() {
     return pfm.admin
       .getStudents(courseId.value, props.token)
       .then(({ data }) => {
-        students.value = data;
+        students.value = sortAttendance(data);
+        console.log(sortAttendance(data));
         return data;
       })
       .finally(() => isChanging.value = false);
@@ -210,7 +215,10 @@
       .changeAttendance(studentId, timeId, value, props.token)
       .then(() => {
         getStudents()
-      })      
+      })
+      .finally(() => {
+        isChanging.value = false;
+      });      
   }
 
   const isChanging = ref(false);
