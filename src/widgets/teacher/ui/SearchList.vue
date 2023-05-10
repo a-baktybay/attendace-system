@@ -111,6 +111,7 @@
         });
       })
       .catch(({response}) => {
+        students.value = [];
         message.value = response.data.message;
         errorAlertRef.value.show();
       });
