@@ -215,7 +215,6 @@
       .getStudents(courseId.value, props.token)
       .then(({ data }) => {
         students.value = sortAttendance(data);
-        console.log(sortAttendance(data));
         return data;
       })
       .finally(() => isChanging.value = false);

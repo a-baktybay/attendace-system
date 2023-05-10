@@ -123,7 +123,6 @@
 
   const takeAttendance = () => {
     const list = Object.keys(attendanceList.value).map(key => attendanceList.value[key]);
-    console.log(list);
     return pfm.teacher
       .takeAttendance(props.id, list, props.token)
       .then(() => {
